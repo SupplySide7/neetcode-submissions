@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int k = 1;
+        auto hours = [&] (int k) {long long time = 0;
+            for (const int& p : piles) {time += p/k + ((p % k) != 0);}
+            return time;};
+        int lo = 1;
+        int hi = (ranges::max(piles)); //* static_cast<int>(piles.size())) / h;
+
+        while (lo < hi) {
+            int mid = lo + (hi - lo)/2;
+            if (hours(mid) <= h) {hi = mid;} // mid is true: answer is mid or left of it
+            else {lo = mid + 1;} // mid is false: answer is right of mid
+        }
+        return lo;
+    }
+};
